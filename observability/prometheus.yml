@@ -3,10 +3,10 @@ global:
   evaluation_interval: 30s  # Evaluate alerts every 30 seconds
 
 scrape_configs:
-  - job_name: 'fintech-app'
+  - job_name: 'prometheus'
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['your-app-url:8000']  # Replace with your app URL
+      - targets: ['localhost:9090']  # Replace with your app URL
 
 alerting:
   alertmanagers:
