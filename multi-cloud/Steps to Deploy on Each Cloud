@@ -1,0 +1,10 @@
+#📌 Steps to Deploy on Each Cloud
+##✅ AWS EKS Deployment
+aws eks update-kubeconfig --region us-east-1 --name fintech-cluster
+kubectl apply -f multi-cloud/aws-deployment.yaml
+##✅ GCP GKE Deployment
+gcloud container clusters get-credentials fintech-cluster --zone us-central1-a --project your-gcp-project
+kubectl apply -f multi-cloud/gcp-deployment.yaml
+##✅ Azure AKS Deployment
+az aks get-credentials --resource-group fintech-rg --name fintech-cluster
+kubectl apply -f multi-cloud/azure-deployment.yaml
