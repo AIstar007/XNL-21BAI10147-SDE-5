@@ -27,3 +27,4 @@ groups:
         annotations:
           summary: "Service Down"
           description: "The fintech app is unreachable for more than 30 seconds."
+          
