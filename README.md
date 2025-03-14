@@ -10,3 +10,12 @@ This project implements a **fully automated CI/CD pipeline** for a fintech appli
 ---
 
 ## 📂 Directory Structure
+
+📦 fintech-ci-cd-pipeline 
+├── 📂 src # Application source code 
+├── 📂 tests # Unit, Integration, and Performance Tests 
+├── 📂 docs # Documentation and Diagrams 
+├── 📂 scripts # Deployment & Rollback Scripts 
+├── 📂 ci-cd # CI/CD Workflow Configurations 
+├── 📂 observability # Monitoring and Alerting Configurations 
+├── 📂 multi-cloud # Cloud deployment configurations
