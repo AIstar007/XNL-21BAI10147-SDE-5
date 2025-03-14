@@ -1,5 +1,8 @@
 from flask import Flask, jsonify
 
+# Ensure necessary imports are at the top
+import some_module
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -12,8 +15,6 @@ def health_check():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-    
-import some_module  # Ensure necessary imports are at the top
 
 
 def function_one():
@@ -21,14 +22,14 @@ def function_one():
 
 
 # Add two blank lines before the next function
-  
+
 
 def function_two():
     pass
 
 
 # Add two blank lines before the next function
-  
+
 
 def function_three():
     pass
