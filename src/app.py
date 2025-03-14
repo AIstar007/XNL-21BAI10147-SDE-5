@@ -1,24 +1,25 @@
-import some_module  # Ensure necessary imports
-
-# Function definitions should have two blank lines before them
+import some_module  # Ensure necessary imports are at the top
 
 
 def function_one():
     pass  # Correct function definition syntax
 
 
-# Add one more blank line before this function to comply with PEP 8
-
+# Add two blank lines before the next function
+  
 
 def function_two():
     pass
 
 
-# Add one more blank line after this function definition
-
+# Add two blank lines before the next function
+  
 
 def function_three():
     pass
+
+
+# Add two blank lines at the end of the file
 
 from flask import Flask, jsonify
 
