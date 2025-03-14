@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fintech-app
+  labels:
+    app: fintech-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fintech-app
+  template:
+    metadata:
+      labels:
+        app: fintech-app
+    spec:
+      containers:
+        - name: fintech-app
+          image: gcr.io/your-gcp-project/fintech-app:v1.0.0
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fintech-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: fintech-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
