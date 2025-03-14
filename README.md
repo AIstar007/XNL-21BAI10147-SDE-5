@@ -35,5 +35,6 @@ bash scripts/deploy.sh
 
 ### 6️⃣ Observability Setup
 Prometheus: http://your-prometheus-url:9090
+
 Grafana: http://your-grafana-url:3000
 ---
