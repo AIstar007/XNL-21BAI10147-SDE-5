@@ -36,3 +36,7 @@ def function_three():
 
 
 # Add two blank lines at the end of the file
+
+def some_function():
+   2 blank lines after class or function definition, found1
+    
