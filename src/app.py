@@ -16,27 +16,3 @@ def health_check():
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
 
-
-def function_one():
-    pass  # Correct function definition syntax
-
-
-# Add two blank lines before the next function
-
-
-def function_two():
-    pass
-
-
-# Add two blank lines before the next function
-
-
-def function_three():
-    pass
-
-
-# Add two blank lines at the end of the file
-
-def some_function():
-   2 blank lines after class or function definition, found1
-    
