@@ -37,4 +37,5 @@ bash scripts/deploy.sh
 Prometheus: http://your-prometheus-url:9090
 
 Grafana: http://your-grafana-url:3000
+
 ---
