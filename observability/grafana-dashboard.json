@@ -1,0 +1,37 @@
+{
+  "dashboard": {
+    "title": "Fintech App Monitoring",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Request Latency",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "95th Percentile"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "CPU Usage",
+        "targets": [
+          {
+            "expr": "process_cpu_seconds_total",
+            "legendFormat": "CPU Usage"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Memory Usage",
+        "targets": [
+          {
+            "expr": "node_memory_Active_bytes / node_memory_MemTotal_bytes",
+            "legendFormat": "Memory Usage"
+          }
+        ]
+      }
+    ]
+  }
+}
