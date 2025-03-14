@@ -1,0 +1,106 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  build:
+    name: Build & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install -r src/requirements.txt
+
+      - name: Run Static Code Analysis
+        run: |
+          pip install flake8
+          flake8 src/
+
+  test:
+    name: Run Tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install -r src/requirements.txt
+
+      - name: Run Unit & Integration Tests
+        run: pytest tests/ --cov=src --cov-fail-under=80
+
+  deploy:
+    name: Deploy to Multi-Cloud
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build & Push Docker Image
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker build -t your-dockerhub-username/fintech-app:v1.0.0 .
+          docker push your-dockerhub-username/fintech-app:v1.0.0
+
+      - name: Deploy to AWS ECS
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+        run: |
+          aws ecs update-service --cluster fintech-cluster --service fintech-service --force-new-deployment
+
+      - name: Deploy to GCP Cloud Run
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          echo "$GCP_SA_KEY" | gcloud auth activate-service-account --key-file=-
+          gcloud run deploy fintech-app --image your-dockerhub-username/fintech-app:v1.0.0 --region us-central1 --platform managed --project your-gcp-project
+
+  observability:
+    name: Configure Observability
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Metrics to Prometheus
+        run: |
+          curl -X POST http://your-prometheus-server/api/v1/metrics/job/fintech-app -d 'deployment_status=success'
+
+      - name: Update Grafana Dashboard
+        run: |
+          curl -X POST http://your-grafana-server/api/dashboards/db -H "Content-Type: application/json" -d '@docs/grafana_dashboard.json'
+
+  rollback:
+    name: Automated Rollback
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Health Check
+        run: bash scripts/health_check.sh || bash scripts/rollback.sh
