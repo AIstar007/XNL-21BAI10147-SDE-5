@@ -1,0 +1,7 @@
+#📌 Final Steps
+##Make scripts executable before running:
+chmod +x deploy.sh rollback.sh health_check.sh
+##Run the deployment script:
+./deploy.sh
+##Monitor health checks manually:
+./health_check.sh
