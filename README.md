@@ -7,4 +7,13 @@ This project implements a **fully automated CI/CD pipeline** for a fintech appli
 - **Observability** (Prometheus & Grafana)
 - **Automated rollback** on failure
 
+
+---
+
+## 🚀 **Setup & Deployment**
+### **1️⃣ Clone the Repository**
+```bash
+git clone https://github.com/AIstar007/XNL-21BCEXXXX-SDE-5.git
+cd fintech-ci-cd-pipeline
+
 ---
